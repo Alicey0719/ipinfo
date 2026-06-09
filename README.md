@@ -12,7 +12,7 @@ curl https://ip.alicey.dev
 
 ```json
 {
-  "connectingIp": "192.0.2.1",
+  "ip": "192.0.2.1",
   "forwardedFor": ["192.0.2.1"],
   "asn": 64496,
   "asOrganization": "Example ISP",
@@ -27,24 +27,24 @@ curl https://ip.alicey.dev
 }
 ```
 
-VPN・プロキシ経由の場合は `forwardedFor` に複数のIPが含まれる。geo情報は常に `connectingIp`（Cloudflareが直接受け取ったIP）のもの。
+VPN・プロキシ経由の場合は `forwardedFor` に複数のIPが含まれる。geo情報は常に `ip`（Cloudflareが直接受け取ったIP）のもの。
 
 ```json
 {
-  "connectingIp": "192.0.2.1",
+  "ip": "192.0.2.1",
   "forwardedFor": ["198.51.100.1", "192.0.2.1"],
   ...
 }
 ```
 
-フィールドはCloudflare側でデータがある場合のみ含まれる。ローカル開発時は `connectingIp` と `forwardedFor` のみ返る。
+フィールドはCloudflare側でデータがある場合のみ含まれる。ローカル開発時は `ip` と `forwardedFor` のみ返る。
 
 ### フィールド一覧
 
 | フィールド | 型 | 説明 |
 |---|---|---|
-| `connectingIp` | string | Cloudflareが受け取った接続元IP（偽装不可） |
-| `forwardedFor` | string[] | X-Forwarded-For のIP配列。プロキシがない場合は `connectingIp` のみ |
+| `ip` | string | 接続元IP。Cloudflareが設定するため偽装不可 |
+| `forwardedFor` | string[] | X-Forwarded-For のIP配列。プロキシがない場合は `ip` のみ |
 | `asn` | number | AS番号 |
 | `asOrganization` | string | AS組織名 |
 | `city` | string | 市区町村 |

@@ -25,12 +25,12 @@ export default {
       return json({ error: 'Method Not Allowed' }, 405);
     }
 
-    const connectingIp = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+    const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
     const xff = request.headers.get('X-Forwarded-For');
-    const forwardedFor = xff ? xff.split(',').map(s => s.trim()) : [connectingIp];
+    const forwardedFor = xff ? xff.split(',').map(s => s.trim()) : [ip];
     const cf = (request.cf ?? {}) as Record<string, unknown>;
 
-    const result: Record<string, unknown> = { connectingIp, forwardedFor };
+    const result: Record<string, unknown> = { ip, forwardedFor };
     for (const key of CF_FIELDS) {
       if (cf[key] !== undefined) result[key] = cf[key];
     }
