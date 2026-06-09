@@ -1,0 +1,40 @@
+services:
+  install:
+    image: node:22-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    command: npm install
+
+  dev:
+    image: node:22-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    ports:
+      - "8787:8787"
+    # --ip 0.0.0.0 でコンテナ外からアクセス可能にする
+    command: npx wrangler dev --ip 0.0.0.0
+
+  type-check:
+    image: node:22-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    command: npx tsc
+
+  deploy:
+    image: node:22-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    environment:
+      - CLOUDFLARE_API_TOKEN
+    command: npx wrangler deploy
+
+volumes:
+  node_modules:

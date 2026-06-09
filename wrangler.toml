@@ -1,0 +1,10 @@
+name = "ipinfo"
+main = "src/index.ts"
+compatibility_date = "2026-06-08"
+
+[[routes]]
+pattern = "ip.alicey.dev"
+custom_domain = true
+
+[observability]
+enabled = true
